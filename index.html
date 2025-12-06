@@ -1,11 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Porównywarka Działek</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>🏘️ Porównywarka Działek</h1>
+            <p>Narzędzie do porównywania dwóch zbiorów danych z plików txt</p>
+        </header>
+
+        <main>
+            <!-- Sekcja wczytywania plików -->
+            <section class="file-upload-section">
+                <div class="file-inputs">
+                    <div class="file-input-group">
+                        <label for="file1" class="file-label">
+                            <span class="file-icon">📁</span>
+                            <span class="file-text">Wybierz plik 1</span>
+                        </label>
+                        <input type="file" id="file1" accept=".txt" class="file-input">
+                        <div class="file-info" id="file1-info">Nie wybrano pliku</div>
+                    </div>
+                    
+                    <div class="file-input-group">
+                        <label for="file2" class="file-label">
+                            <span class="file-icon">📁</span>
+                            <span class="file-text">Wybierz plik 2</span>
+                        </label>
+                        <input type="file" id="file2" accept=".txt" class="file-input">
+                        <div class="file-info" id="file2-info">Nie wybrano pliku</div>
+                    </div>
+                </div>
+                
+                <button id="compareBtn" class="compare-btn" disabled>
+                    <span>🔍 Porównaj pliki</span>
+                </button>
+            </section>
+
+            <!-- Sekcja wyników -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="file1Count">0</div>
+                        <div class="stat-label">Działek w pliku 1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="file2Count">0</div>
+                        <div class="stat-label">Działek w pliku 2</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="onlyInFile1Count">0</div>
+                        <div class="stat-label">Tylko w pliku 1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="onlyInFile2Count">0</div>
+                        <div class="stat-label">Tylko w pliku 2</div>
+                    </div>
+                </div>
+
+                <div class="differences-grid">
+                    <div class="diff-card">
+                        <h3>🔴 Działki tylko w pliku 1</h3>
+                        <div class="diff-list" id="onlyInFile1List"></div>
+                    </div>
+                    <div class="diff-card">
+                        <h3>🔵 Działki tylko w pliku 2</h3>
+                        <div class="diff-list" id="onlyInFile2List"></div>
+                    </div>
+                </div>
+
+                <div class="export-section">
+                    <button id="exportBtn" class="export-btn">
+                        <span>💾 Eksportuj wyniki do pliku txt</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Sekcja ładowania -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Trwa porównywanie plików...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Program do porównywania zbiorów danych działek</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
