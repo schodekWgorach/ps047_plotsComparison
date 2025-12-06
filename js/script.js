@@ -16,6 +16,10 @@ class FileComparator {
         const file1Input = document.getElementById('file1');
         const file2Input = document.getElementById('file2');
         const compareBtn = document.getElementById('compareBtn');
+        if (!compareBtn) {
+            console.error('Button with ID "compareBtn" not found.');
+            return;
+        }
         const exportBtn = document.getElementById('exportBtn');
 
         // Nasłuchiwanie na zmiany w plikach
@@ -74,17 +78,31 @@ class FileComparator {
      */
     readTextFile(file) {
         return new Promise((resolve, reject) => {
+            if (!file) {
+                reject(new Error('Plik nie został wybrany'));
+                return;
+            }
+
             const reader = new FileReader();
             
             reader.onload = (e) => {
-                resolve(e.target.result);
+                const result = e.target.result;
+                if (!result || result.trim().length === 0) {
+                    reject(new Error('Plik jest pusty'));
+                    return;
+                }
+                resolve(result);
             };
             
             reader.onerror = () => {
                 reject(new Error('Błąd wczytywania pliku'));
             };
+
+            reader.onabort = () => {
+                reject(new Error('Wczytywanie pliku zostało przerwane'));
+            };
             
-            reader.readAsText(file, 'UTF-8');
+            reader.readAsText(file);
         });
     }
 
